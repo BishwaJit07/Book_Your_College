@@ -1,9 +1,10 @@
 import React from 'react';
+import Colleges from './Colleges';
 
 const Home = () => {
     return (
         <div>
-            Home
+            <Colleges/>
         </div>
     );
 };

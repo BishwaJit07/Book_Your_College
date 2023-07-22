@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useAuth = () => {
+const useAxiosSecure = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const useAuth = () => {
     );
 };
 
-export default useAuth;
+export default useAxiosSecure;

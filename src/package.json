@@ -1,0 +1,52 @@
+{
+    
+    "college_name": "Example University",
+    "image_url": "https://example.com/college_image.jpg",
+    "admission_dates":"September 1, 2023",
+    "admission_process": "Admission to Example University is based on a competitive application process, which includes submitting academic records, recommendation letters, and a personal statement.",
+    "events": [
+        {
+            "name": "Orientation Day",
+            "date": "August 25, 2023",
+            "description": "Orientation day for new students to get acquainted with the campus, facilities, and university policies."
+        },
+        {
+            "name": "Career Fair",
+            "date": "October 12, 2023",
+            "description": "An event where students can network with potential employers and explore job opportunities."
+        },
+        {
+            "name": "Cultural Festival",
+            "date": "November 8, 2023",
+            "description": "A celebration of diverse cultures with music, dance, and traditional food."
+        }
+    ],
+    "research_history": "Example University has a rich history of groundbreaking research across various disciplines, with notable contributions to fields such as science, technology, and social sciences.",
+    "research_works": [
+        {
+            "title": "Advancements in Renewable Energy",
+            "authors": [
+                "John Smith",
+                "Emily Johnson"
+            ],
+            "publication_date": "July 2022",
+            "description": "A study on the latest developments in renewable energy sources and their potential impact on mitigating climate change."
+        },
+        {
+            "title": "Understanding Artificial Intelligence",
+            "authors": [
+                "David Lee",
+                "Sophia Chen"
+            ],
+            "publication_date": "March 2023",
+            "description": "An exploration of artificial intelligence, its current capabilities, and ethical implications."
+        }
+    ],
+    "sports_categories": [
+        "Football",
+        "Basketball",
+        "Swimming",
+        "Tennis",
+        "Volleyball"
+    ]
+}

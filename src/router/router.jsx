@@ -8,6 +8,7 @@ import Main from "../Layout/Main";
 import Admission from "../Pages/Admission";
 import Colleges from "../Pages/Colleges";
 import Home from "../Pages/Home";
+import CollegeDetails from "../Pages/HomeComponent/CollegeDetails";
 import MyCollege from "../Pages/MyCollege";
 import Login from "../SignUp/Login.Jsx";
 import SignUp from "../SignUp/SignIn";
@@ -43,7 +44,13 @@ import SignUp from "../SignUp/SignIn";
         {
             path:"/signin",
             element: <SignUp/>
-        }
+        },
+
+        {
+          path: "/colleges/:id",
+          element: <CollegeDetails/>,
+          loader: ({params})=> fetch(`http://localhost:5000/colleges/${params.id}`)
+        },
         
       ]
       

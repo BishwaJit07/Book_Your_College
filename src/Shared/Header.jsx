@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { BiSolidLogInCircle } from "react-icons/bi";
 import useAuth from '../Hooks/useAuth';
 const Header = () => {
-  const { user, logOut } = useAuth();
+  const { user } = useAuth();
   console.log(user);
     return (
         <div>
