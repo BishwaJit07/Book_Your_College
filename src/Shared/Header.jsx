@@ -1,7 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { BiSolidLogInCircle } from "react-icons/bi";
+import useAuth from '../Hooks/useAuth';
 const Header = () => {
+  const { user, logOut } = useAuth();
+  console.log(user);
     return (
         <div>
             <div className="navbar bg-base-100">
@@ -20,7 +23,7 @@ const Header = () => {
         <li><Link to='/mycolege'>My Colege</Link></li>
       </ul>
     </div>
-    <a className="btn btn-ghost normal-case text-xl">Book Your College</a>
+    <Link to='/' className=" normal-case text-xl">Book Your College</Link>
   </div>
   <div className="navbar-center hidden lg:flex">
     <ul className="menu menu-horizontal px-1">
@@ -34,7 +37,7 @@ const Header = () => {
     </ul>
   </div>
   <div className="navbar-end">
-    <a className="btn">Button</a>
+    <Link to='/login' className="btn bg-blue-500 text-white">Login <BiSolidLogInCircle className='text-2xl'/></Link>
   </div>
 </div>
         </div>

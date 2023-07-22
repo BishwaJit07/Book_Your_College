@@ -5,7 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import './index.css'
-import AuthProvider from './Providers/AuthProviders';
+import AuthProvider from './Providers/AuthProvider';
 import router from './router/router';
 
 ReactDOM.createRoot(document.getElementById('root')).render(

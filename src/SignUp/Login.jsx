@@ -71,7 +71,7 @@ const Login = () => {
               <div className="form-control ">
               <input className="btn  text-white bg-pink-700 hover:bg-blue-600" type="submit" value="Login" />
                 <label className="label">
-                  <Link to="/signup" className="label-text-alt link link-hover text-white">Don't Have Account? SignUp</Link>
+                  <Link to="/signin" className="label-text-alt link link-hover text-black">Don't Have Account? SignUp</Link>
                 </label>
               </div>
             </form>

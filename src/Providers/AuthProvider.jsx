@@ -4,16 +4,15 @@ import {
   createUserWithEmailAndPassword,
   getAuth,
   GoogleAuthProvider,
-  
+  onAuthStateChanged,
   signInWithEmailAndPassword,
   signInWithPopup,
   signOut,
   updateProfile,
 } from "firebase/auth";
-import app from "../FireBase/FireBase";
 
 
-
+import app from "../FireBase/FireBase.config";
 
 
 
@@ -64,30 +63,30 @@ const AuthProvider = ({ children }) => {
   };
   
 
-//   useEffect(() => {
-//     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-//       setUser(currentUser);
-//       console.log("current User", currentUser);
+  // useEffect(() => {
+  //   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+  //     setUser(currentUser);
+  //     console.log("current User", currentUser);
 
-//       // jwt token 
-//        if(currentUser){ axios.post('https://infinitymarttialarts.vercel.app/jwt',{email: currentUser.email})
-//        .then(data=>{
-//         console.log(data.data.jwtToken)
-//   localStorage.setItem('jwt-access-token', data.data.jwtToken)
-//        })
-//       }
+  //     // jwt token 
+  //      if(currentUser){ axios.post('https://infinitymarttialarts.vercel.app/jwt',{email: currentUser.email})
+  //      .then(data=>{
+  //       console.log(data.data.jwtToken)
+  // localStorage.setItem('jwt-access-token', data.data.jwtToken)
+  //      })
+  //     }
 
-//       else{
-//         localStorage.removeItem('jwt-access-token')
-//       }
-//       setLoading(false)
+  //     else{
+  //       localStorage.removeItem('jwt-access-token')
+  //     }
+  //     setLoading(false)
 
     
-//     });
-//     return () => {
-//       return unsubscribe;
-//     };
-//   }, []);
+  //   });
+  //   return () => {
+  //     return unsubscribe;
+  //   };
+  // }, []);
 
   const authInfo = {
     user,

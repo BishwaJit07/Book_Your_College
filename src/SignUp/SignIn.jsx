@@ -34,7 +34,7 @@ const SignUp = () => {
             photoURL: data.photoURL,
             role: "student",
           };
-          fetch("https://infinitymarttialarts.vercel.app/users", {
+          fetch("http://localhost:5000/users", {
             method: "POST",
             headers: {
               "content-type": "application/json",
@@ -178,7 +178,7 @@ const SignUp = () => {
           <label className="label">
             <Link
               to="/login"
-              className="label-text-alt link link-hover text-white"
+              className="label-text-alt link link-hover text-black"
             >
               Already Have Account? Login
             </Link>
