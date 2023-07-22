@@ -10,9 +10,10 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
+import app from "../FireBase/FireBase";
 
 
-import app from "../Firebase/firebase.config";
+
 
 
 

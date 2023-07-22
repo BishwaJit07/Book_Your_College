@@ -16,7 +16,7 @@ const Header = () => {
           <Link to='/colleges'>Colleges</Link>
           
         </li>
-        <li><Link to='/addmission'>Admissions</Link></li>
+        <li><Link to='/admission'>Admissions</Link></li>
         <li><Link to='/mycolege'>My Colege</Link></li>
       </ul>
     </div>
