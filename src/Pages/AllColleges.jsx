@@ -29,7 +29,7 @@ const AllColleges = () => {
     </div>
     <p className="text-white mt-3">Recharge History: {college.research_history}</p>
     <div className="card-actions mt-5">
-      <Link to={`/colleges/${college._id}`} className="btn bg-pink-600 hover:bg-pink-800 text-white px-4 py-2 rounded-md">Details</Link>
+      <Link to={`/colleges/${college.id}`} className="btn bg-pink-600 hover:bg-pink-800 text-white px-4 py-2 rounded-md">Details</Link>
     </div>
   </div>
 </div>

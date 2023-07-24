@@ -1,151 +1,200 @@
-import React, { useState } from 'react';
-import useAuth from '../Hooks/useAuth';
-import UseColleges from '../Hooks/UseColleges';
+import React, { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
+import UseColleges from "../Hooks/UseColleges";
 
 const Admission = () => {
   const [colleges] = UseColleges();
-console.log(colleges);
-const [selectedCollege, setSelectedCollege] = useState(null);
+  console.log(colleges);
+  const [selectedCollege, setSelectedCollege] = useState('');
 
-    const {user} = useAuth();
-    console.log(user);
+  console.log(selectedCollege);
+  const navigate= useNavigate();
+  const from =  '/mycolege'
+  const { user } = useAuth();
+  console.log(user);
   // State to hold the form data
+
   const [formData, setFormData] = useState({
+    collegeName:selectedCollege ? selectedCollege.college_name : " ",
+    clgId:selectedCollege ? selectedCollege._id : " ",
     candidateName: user?.displayName,
-    subject: '',
+    subject: "",
     candidateEmail: user?.email,
-    candidatePhone: '',
-    address: '',
-    dateOfBirth: '',
+    candidatePhone: "",
+    address: "",
+    dateOfBirth: "",
     image: user?.photoURL,
   });
 
+ 
+  const handleCollegeSelection = (college) => {
+    console.log("Selected college:", college);
+    setSelectedCollege(college);
+  }
+  
+  useEffect(() => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      collegeName: selectedCollege ? selectedCollege.college_name : '',
+      clgId:selectedCollege ? selectedCollege._id : " ",
+    }));
+  }, [selectedCollege]);
+
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle form submission here, e.g., send data to the server
-    // or perform any necessary actions.
-    console.log(formData);
+   
+    const newformData = formData ;
+  
+    fetch("http://localhost:5000/admission", {
+      method: "POST",
+      headers: {
+    "content-type": "application/json",
+      },
+      body: JSON.stringify(newformData),
+    })
+      .then((res) => res.json())
+      .then(() => {
+        {
+            navigate(from,{replace:true});
+          }
+        });
   };
 
   // Handle form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
+    setFormData((prevFormData) => {
+      const updatedFormData = {
+        ...prevFormData,
+        [name]: value,
+      };
+      console.log("Updated form data:", updatedFormData);
+      return updatedFormData;
+    });
   };
+  
 
   return (
-    <div className='flex justify-around'>
-         <div>
-      {colleges.map((college,index) => (
-        <div key={index}>
-          <ul>
-            <li>
-              <button onClick={() => setSelectedCollege(college)}> {college.college_name}</button>
-             
-            </li>
-          </ul>
-        </div>
+    <div className="flex justify-around text-center items-center">
+      <div>
+      <h2 className="text-xl bg-slate-200 p-2 rounded">Select Your College</h2>
+        {colleges.map((college, index) => (
+          <div key={index}>
+            
+            <ul>
+              <li>
+                <p className="btn bg-red-300 my-2" onClick={() => handleCollegeSelection (college)}>
+                  
+                  {college.college_name}
+                </p>
+              </li>
+            </ul>
+          </div>
         ))}
-    </div>
-    <div>
-    {selectedCollege && (
-        <div>
-          <form onSubmit={handleSubmit} className='flex flex-col'>
-            {/* Input fields for the selected college */}
-            <input type="text" placeholder="Candidate Name" name="candidateName" value={formData.candidateName} onChange={handleChange} />
-            <input type="text" placeholder="Subject" name="subject" value={formData.subject} onChange={handleChange} />
-            <input type="email" placeholder="Candidate Email" name="candidateEmail" value={formData.candidateEmail} onChange={handleChange} />
-            <input type="tel" placeholder="Candidate Phone Number" name="candidatePhone" value={formData.candidatePhone} onChange={handleChange} />
-            <input type="text" placeholder="Address" name="address" value={formData.address} onChange={handleChange} />
-            <input type="date" name="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
-            <input type="file" onChange={(e) => setFormData({ ...formData, image: e.target.files[0] })} />
+      </div> 
+      <div>
+        {selectedCollege && (
+          <div>
+            <form onSubmit={handleSubmit} className="flex flex-col items-center">
+  {/* Input fields for the selected college */}
+  <h2 className="text-xl bg-gray-200 p-4 rounded-xl">
+    Selected College: <span className="text-blue-600">{selectedCollege?.college_name}</span>
+  </h2>
 
-            <button type="submit">Submit</button>
-          </form>
-        </div>
-      )}
-    </div>
+  <div className="input-container my-2">
+    <label htmlFor="candidateName">Candidate Name:</label>
+    <input
+      type="text"
+      placeholder="Candidate Name"
+      name="candidateName"
+      value={formData.candidateName}
+      onChange={handleChange}
+      className="input input-bordered input-info w-full max-w-xs "
+    />
+  </div>
+
+  <div className="input-container">
+    <label htmlFor="subject">Subject:</label>
+    <input
+      type="text"
+      placeholder="Subject"
+      name="subject"
+      value={formData.subject}
+      onChange={handleChange}
+      className="input input-bordered input-info w-full max-w-xs"
+    />
+  </div>
+
+  <div className="input-container my-2">
+    <label htmlFor="candidateEmail">Candidate Email:</label>
+    <input
+      type="email"
+      placeholder="Candidate Email"
+      name="candidateEmail"
+      value={formData.candidateEmail}
+      readOnly
+      className="input input-bordered input-info w-full max-w-xs "
+    />
+  </div>
+
+  <div className="input-container my-2">
+    <label htmlFor="candidatePhone">Candidate Phone Number:</label>
+    <input
+      type="tel"
+      placeholder="Candidate Phone Number"
+      name="candidatePhone"
+      value={formData.candidatePhone}
+      onChange={handleChange}
+      className="input input-bordered input-info w-full max-w-xs"
+    />
+  </div>
+
+  <div className="input-container  my-2">
+    <label htmlFor="address">Address:</label>
+    <input
+      type="text"
+      placeholder="Address"
+      name="address"
+      value={formData.address}
+      onChange={handleChange}
+      className="input input-bordered input-info w-full max-w-xs"
+    />
+  </div>
+
+  <div className="input-container  my-2">
+    <label htmlFor="dateOfBirth">Date of Birth:</label>
+    <input
+      type="date"
+      name="dateOfBirth"
+      value={formData.dateOfBirth}
+      onChange={handleChange}
+      className="input input-bordered input-info w-full max-w-xs"
+    />
+  </div>
+
+  <div className="input-container my-2">
+    <label htmlFor="image">Image link:</label>
+    <input
+      type="text"
+      name="image"
+      placeholder="Image link"
+      value={formData.image}
+      onChange={handleChange}
+      className="input input-bordered input-info w-full max-w-xs "
+    />
+  </div>
+
+  <button className="btn bg-blue-400" type="submit">Submit</button>
+</form>
+
+          </div>
+        )}
+      </div>
     </div>
   );
 };
 
 export default Admission;
-
-
-// const Admission = () => {
-
-//     const {user} = useAuth();
-//     console.log(user);
-//   // State to hold the form data
-//   const [formData, setFormData] = useState({
-//     candidateName: user?.displayName,
-//     subject: '',
-//     candidateEmail: user?.email,
-//     candidatePhone: '',
-//     address: '',
-//     dateOfBirth: '',
-//     image: user?.photoURL,
-//   });
-
-//   // Handle form submission
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     // You can handle form submission here, e.g., send data to the server
-//     // or perform any necessary actions.
-//     console.log(formData);
-//   };
-
-//   // Handle form input changes
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormData((prevFormData) => ({
-//       ...prevFormData,
-//       [name]: value,
-//     }));
-//   };
-
-  
-//   return (
-//     <div className='flex flex-col justify-center items-center text-center'>
-//       <h2>Admission Form</h2>
-//       <form onSubmit={handleSubmit} >
-//         <div>
-//           <label>Candidate Name:</label> 
-//           <input type="text" name="candidateName"  className="input input-bordered" value={formData.candidateName} onChange={handleChange} required />
-//         </div>
-//         <div>
-//           <label>Subject:</label>
-//           <input type="text" name="subject"  className="input input-bordered" value={formData.subject} onChange={handleChange} required />
-//         </div>
-//         <div>
-//           <label>Candidate Email:</label>
-//           <input type="email" name="candidateEmail" value={formData.candidateEmail} onChange={handleChange}  className="input input-bordered" required />
-//         </div>
-//         <div>
-//           <label>Candidate Phone:</label>
-//           <input type="tel"  className="input input-bordered" name="candidatePhone" value={formData.candidatePhone} onChange={handleChange} required />
-//         </div>
-//         <div>
-//           <label>Address:</label>
-//           <textarea name="address" value={formData.address} onChange={handleChange}  className="input input-bordered" required />
-//         </div>
-//         <div>
-//           <label>Date of Birth:</label>
-//           <input type="date" name="dateOfBirth"  className="input input-bordered" value={formData.dateOfBirth} onChange={handleChange} required />
-//         </div>
-//         <div>
-//           <label>Image:</label>
-//           <input type="text"  className="input input-bordered" value={formData.image}  onChange={handleChange}/>
-//         </div>
-//         <div>
-//           <button className='btn' type="submit">Submit</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
 

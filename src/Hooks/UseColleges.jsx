@@ -9,7 +9,7 @@ const UseColleges = () => {
       .then((data) => {
         setColleges(data);
       });
-  }, []); // Add an empty array as the second argument to useEffect
+  }, []); 
 
   return [colleges];
 };
